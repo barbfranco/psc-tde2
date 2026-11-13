@@ -23,7 +23,7 @@ A versão ingênua reproduziu o deadlock. Na versão corrigida, as 11 execuçõe
 Os logs completos e a análise dos resultados estão disponíveis em `evidencias/filosofos.txt`.
 
 ### Fluxograma
-![Fluxograma dos Filósofos](evidencias/fluxo-filosofos-tde2.png)
+![Fluxograma dos Filósofos](evidencias/fluxograma-filosofos-tde2.png)
 
 ### Como executar
 No terminal, a partir da raiz do repositório:
