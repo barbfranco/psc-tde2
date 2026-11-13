@@ -1,0 +1,688 @@
+# Evidências: Jantar dos Filósofos
+
+Programação Concorrente | Linguagem: Python | Configuração: 5 filósofos e 5 garfos compartilhados
+
+## Teste 1: Versão INGÊNUA
+
+* Objetivo: observar a ocorrência de deadlock quando todos os filósofos adquirem um garfo e aguardam o segundo.
+* Resultados:
+> Os cinco filósofos começaram pensando.
+> Todos ficaram com fome e pegaram seu primeiro garfo.
+> Todos passaram a aguardar o segundo garfo.
+> Como resultado, nenhum conseguiu começar a comer.
+> Então o terminal exibiu "DEADLOCK DETECTADO!".
+* Evidência:
+PS C:\Users\barba\Documents\4p-psc\psc-tde2>  python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 1
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: pegou garfo 4
+Filósofo 4: com fome
+Filósofo 4: pegou garfo 2
+Filósofo 3: com fome
+Filósofo 3: pegou garfo 1
+Filósofo 5: com fome
+Filósofo 5: pegou garfo 3
+Filósofo 2: com fome
+Filósofo 2: pegou garfo 0
+Filósofo 2: esperando garfo 1
+Filósofo 1: esperando garfo 0
+Filósofo 4: esperando garfo 3
+Filósofo 5: esperando garfo 4
+Filósofo 3: esperando garfo 2
+
+DEADLOCK DETECTADO!
+
+### Teste 2: Versão corrigida
+
+* Objetivo: verificar se a hierarquia de aquisição dos garfos permite que todos os filósofos progridam e concluam suas refeições.
+* Resultados das 11 execuções:
+> Execuções realizadas/concluídas: 11
+> Filósofos por execução: 5
+> Refeições (por filósofo) em cada execução: 3
+> Total de refeições: 165
+> Deadlocks: 0
+> Casos de inanição observados: 0
+> Refeições acumuladas por cada filósofo: 33
+
+* Evidência:
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 3: com fome
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 3: com fome
+Filósofo 4: pensando
+Filósofo 2: pensando
+Filósofo 5: comendo
+Filósofo 4: com fome
+Filósofo 2: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 3: comendo
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 3: com fome
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 2: pensando
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 3: comendo
+Filósofo 5: com fome
+Filósofo 3: terminou suas 3 refeições
+Filósofo 1: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 4: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 5: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 3: pensando
+Filósofo 5: com fome
+Filósofo 3: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 1: comendo
+Filósofo 5: pensando
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 4: terminou suas 3 refeições
+Filósofo 1: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 5: terminou suas 3 refeições
+Filósofo 3: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 3: com fome
+Filósofo 4: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 3: comendo
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 3: com fome
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 4: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 3: comendo
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 3: com fome
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 4: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 5: com fome
+Filósofo 1: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 3: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 4: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 5: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 2: com fome
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 5: com fome
+Filósofo 4: com fome
+Filósofo 3: com fome
+Filósofo 2: pensando
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 1: com fome
+Filósofo 5: pensando
+Filósofo 4: comendo
+Filósofo 5: com fome
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 2: comendo
+Filósofo 3: com fome
+Filósofo 2: pensando
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 1: com fome
+Filósofo 5: pensando
+Filósofo 4: comendo
+Filósofo 5: com fome
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 2: comendo
+Filósofo 3: com fome
+Filósofo 2: terminou suas 3 refeições
+Filósofo 1: comendo
+Filósofo 1: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 5: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 4: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 3: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 4: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 2: com fome
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 4: comendo
+Filósofo 3: pensando
+Filósofo 5: com fome
+Filósofo 3: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 1: com fome
+Filósofo 4: com fome
+Filósofo 2: pensando
+Filósofo 3: comendo
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 5: com fome
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 1: terminou suas 3 refeições
+Filósofo 3: com fome
+Filósofo 4: pensando
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 4: com fome
+Filósofo 2: terminou suas 3 refeições
+Filósofo 5: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 3: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 4: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 3: com fome
+Filósofo 3: comendo
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 4: com fome
+Filósofo 1: com fome
+Filósofo 3: pensando
+Filósofo 2: comendo
+Filósofo 5: comendo
+Filósofo 3: com fome
+Filósofo 5: pensando
+Filósofo 4: comendo
+Filósofo 2: pensando
+Filósofo 1: comendo
+Filósofo 5: com fome
+Filósofo 2: com fome
+Filósofo 1: pensando
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 1: com fome
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 2: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 2: pensando
+Filósofo 1: comendo
+Filósofo 4: comendo
+Filósofo 2: com fome
+Filósofo 1: pensando
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 1: com fome
+Filósofo 4: com fome
+Filósofo 5: terminou suas 3 refeições
+Filósofo 3: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 1: comendo
+Filósofo 4: comendo
+Filósofo 1: terminou suas 3 refeições
+Filósofo 4: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 3: com fome
+Filósofo 3: comendo
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 4: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 3: pensando
+Filósofo 3: com fome
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 4: comendo
+Filósofo 5: pensando
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 1: comendo
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 3: com fome
+Filósofo 1: com fome
+Filósofo 5: pensando
+Filósofo 2: pensando
+Filósofo 4: comendo
+Filósofo 5: com fome
+Filósofo 2: com fome
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 1: comendo
+Filósofo 4: com fome
+Filósofo 3: terminou suas 3 refeições
+Filósofo 1: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 5: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 4: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 4: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 3: terminou suas 3 refeições
+Filósofo 5: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 4: com fome
+Filósofo 3: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 5: pensando
+Filósofo 2: pensando
+Filósofo 4: comendo
+Filósofo 2: com fome
+Filósofo 5: com fome
+Filósofo 4: pensando
+Filósofo 1: comendo
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 3: pensando
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 5: comendo
+Filósofo 3: com fome
+Filósofo 1: com fome
+Filósofo 2: pensando
+Filósofo 5: pensando
+Filósofo 4: comendo
+Filósofo 5: com fome
+Filósofo 2: com fome
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 1: comendo
+Filósofo 4: com fome
+Filósofo 1: terminou suas 3 refeições
+Filósofo 3: pensando
+Filósofo 5: comendo
+Filósofo 2: comendo
+Filósofo 3: com fome
+Filósofo 2: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 5: terminou suas 3 refeições
+Filósofo 4: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 3: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 2: com fome
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 5: com fome
+Filósofo 3: com fome
+Filósofo 4: com fome
+Filósofo 2: pensando
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 1: com fome
+Filósofo 5: pensando
+Filósofo 3: pensando
+Filósofo 4: comendo
+Filósofo 2: comendo
+Filósofo 5: com fome
+Filósofo 3: com fome
+Filósofo 2: pensando
+Filósofo 4: pensando
+Filósofo 1: comendo
+Filósofo 2: com fome
+Filósofo 4: com fome
+Filósofo 1: pensando
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 1: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 2: comendo
+Filósofo 4: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 2: terminou suas 3 refeições
+Filósofo 1: comendo
+Filósofo 4: pensando
+Filósofo 3: comendo
+Filósofo 4: com fome
+Filósofo 3: terminou suas 3 refeições
+Filósofo 1: terminou suas 3 refeições
+Filósofo 5: comendo
+Filósofo 5: terminou suas 3 refeições
+Filósofo 4: comendo
+Filósofo 4: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+PS C:\Users\barba\Documents\4p-psc\psc-tde2> python 1-filosofos/filosofos.py
+JANTAR DOS FILÓSOFOS
+1 - Versão ingênua
+2 - Versão corrigida
+Escolha uma opção: 2
+Filósofo 1: pensando
+Filósofo 2: pensando
+Filósofo 3: pensando
+Filósofo 4: pensando
+Filósofo 5: pensando
+Filósofo 1: com fome
+Filósofo 1: comendo
+Filósofo 4: com fome
+Filósofo 4: comendo
+Filósofo 2: com fome
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 4: pensando
+Filósofo 1: com fome
+Filósofo 4: com fome
+Filósofo 2: pensando
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 4: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 4: pensando
+Filósofo 1: pensando
+Filósofo 2: comendo
+Filósofo 1: com fome
+Filósofo 4: com fome
+Filósofo 2: pensando
+Filósofo 5: comendo
+Filósofo 3: comendo
+Filósofo 2: com fome
+Filósofo 3: pensando
+Filósofo 5: pensando
+Filósofo 1: comendo
+Filósofo 4: comendo
+Filósofo 3: com fome
+Filósofo 5: com fome
+Filósofo 1: terminou suas 3 refeições
+Filósofo 4: terminou suas 3 refeições
+Filósofo 2: comendo
+Filósofo 2: terminou suas 3 refeições
+Filósofo 3: comendo
+Filósofo 5: comendo
+Filósofo 3: terminou suas 3 refeições
+Filósofo 5: terminou suas 3 refeições
+
+Todos os filósofos terminaram de comer e pensar! :)
+
+#### Análise dos resultados
+> As execuções mostram que todos os filósofos conseguiram concluir suas refeições na versão corrigida, mas a ordem de atendimento variou entre as execuções.
+> A hierarquia de aquisição dos garfos evita a espera circular.
+> O mecanismo de senhas organiza a ordem de atendimento dos pedidos.
+> As 11 execuções corrigidas foram concluídas com sucesso, sem deadlock ou inanição observados.
