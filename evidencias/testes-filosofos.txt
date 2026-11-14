@@ -1,0 +1,42 @@
+# Evidências: Testes do Jantar dos Filósofos (Bruno)
+
+Comando: python3 1-filosofos/testes-filosofos.py
+Ambiente: Python 3.9.6 | macOS 27.2 (MacBook Air M1)
+Data: 13/11/2026 23:04
+
+## Saída real
+
+TESTES - JANTAR DOS FILOSOFOS
+
+[OK] Exclusao mutua: o Lock so deixa um filosofo segurar o garfo por vez
+[OK] Ingenua: 5 filosofos com 1 garfo, 5 esperando o segundo, deadlock detectado
+[OK] Corrigida rodada 1/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 2/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 3/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 4/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 5/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 6/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=2
+[OK] Corrigida rodada 7/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 8/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 9/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=1
+[OK] Corrigida rodada 10/10: refeicoes=[3, 3, 3, 3, 3] maior diferenca durante a execucao=2
+
+RESUMO
+Rodadas da versao corrigida: 10
+Refeicoes conferidas: 150
+Maior diferenca de refeicoes entre filosofos (pior rodada): 2
+Deadlock na corrigida: 0 | Filosofo sem comer: 0
+Testes concluidos.
+
+## O que cada teste verifica
+
+* Exclusão mútua: enquanto uma thread segura o Lock (garfo), outra thread tenta pegar sem esperar e não consegue. Depois que o garfo é devolvido, ele pode ser pego de novo.
+* Versão ingênua: os 5 filósofos pegam o primeiro garfo, os 5 ficam esperando o segundo, ninguém come e o programa mostra "DEADLOCK DETECTADO!". É a espera circular acontecendo.
+* Versão corrigida (10 rodadas): cada filósofo come exatamente 3 vezes, todos terminam e a mensagem final aparece. Isso mostra progresso e que nenhum filósofo ficou sem comer (sem inanição observada).
+* Justiça: durante cada execução o teste conta as refeições de cada filósofo e guarda a maior diferença entre quem comeu mais e quem comeu menos. Em todas as rodadas essa diferença ficou em no máximo 1, ou seja, nenhum filósofo passou na frente dos outros várias vezes seguidas.
+
+## Observações
+
+* A fila por senhas organiza a ordem em que os pedidos de garfos são autorizados, não a ordem em que cada refeição termina.
+* Os testes mostram o comportamento nas execuções feitas aqui. Eles não provam que qualquer execução futura vai se comportar igual, e não medem tempo de espera (o filosofos.py não registra horário).
+* Essas 10 rodadas complementam as 11 execuções registradas pela Bárbara em evidencias/filosofos.txt.
