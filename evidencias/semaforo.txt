@@ -1,0 +1,60 @@
+1. AMBIENTE DE EXECUÇÃO
+
+Sistema operacional: Windows
+Versão do Python: 3.14.3
+
+2. CONFIGURAÇÃO DO EXPERIMENTO
+
+Quantidade de threads: 8
+Incrementos por thread: 200.000
+Quantidade de repetições por versão: 3
+Valor esperado do contador: 1.600.000
+
+3. RESULTADOS - SEM SEMÁFORO
+Saída registrada no terminal:
+sem semaforo | 1 | 1600000 | 1600000 | 0.1070
+sem semaforo | 2 | 1600000 | 1400000 | 0.1075
+sem semaforo | 3 | 1600000 | 851000  | 0.1087
+
+Resumo:
+Rodada 1 - Esperado: 1.600.000 | Obtido: 1.600.000 | Tempo: 0,1070 s
+Rodada 2 - Esperado: 1.600.000 | Obtido: 1.400.000 | Tempo: 0,1075 s
+Rodada 3 - Esperado: 1.600.000 | Obtido: 851.000 | Tempo: 0,1087 s
+
+4. RESULTADOS - COM SEMÁFORO
+Saída registrada no terminal:
+com semaforo | 1 | 1600000 | 1600000 | 1.2021
+com semaforo | 2 | 1600000 | 1600000 | 1.2059
+com semaforo | 3 | 1600000 | 1600000 | 1.1707
+
+Resumo:
+
+Rodada 1 - Esperado: 1.600.000 | Obtido: 1.600.000 | Tempo: 1,2021 s
+Rodada 2 - Esperado: 1.600.000 | Obtido: 1.600.000 | Tempo: 1,2059 s
+Rodada 3 - Esperado: 1.600.000 | Obtido: 1.600.000 | Tempo: 1,1707 s
+
+5. COMPARAÇÃO DOS TEMPOS
+Tempo médio sem semáforo: 0,1077 s
+Tempo médio com semáforo: 1,1929 s
+
+Neste conjunto de medições, a versão com semáforo levou aproximadamente 11,1 vezes mais tempo, em média, do que a versão sem semáforo.
+A comparação de desempenho deve ser interpretada junto com a correção: a versão sem semáforo foi mais rápida, mas não garantiu o resultado correto em duas das três execuções. Já a versão protegida alcançou o valor esperado em todas as rodadas.
+
+6. ANÁLISE DOS RESULTADOS
+Condição de corrida e perda de incrementos:
+Sem o semáforo, duas das três execuções terminaram com valores inferiores ao esperado. Na primeira rodada, o contador chegou a 1.600.000, correspondendo ao valor esperado. Na segunda rodada, foram registrados 1.400.000 incrementos, ou seja, 200.000 a menos. Na terceira, foram registrados 851.000, uma diferença de 749.000 incrementos.
+Esses resultados são compatíveis com uma condição de corrida: threads podem ler o mesmo valor do contador antes que uma atualização seja concluída, fazendo com que uma gravação sobrescreva a outra. Na primeira rodada, não houve perda de incrementos, demonstrando que a condição de corrida não necessariamente produz resultados incorretos em todas as execuções.
+
+Correção com semáforo:
+Nas três execuções protegidas, o contador chegou a 1.600.000, que é o valor esperado. O semáforo binário foi utilizado para proteger a seção crítica do incremento. Assim, apenas uma thread por vez executa a operação protegida, evitando que atualizações concorrentes do contador se sobrescrevam.
+
+Impacto no desempenho e throughput:
+O tempo médio observado foi de 0,1077 s sem semáforo e 1,1929 s com semáforo. Portanto, neste experimento, a versão protegida demorou aproximadamente 11,1 vezes mais.
+O custo está relacionado à sincronização: as threads precisam disputar a entrada na seção crítica e aguardar a liberação do semáforo. A versão sem proteção executa mais rapidamente, mas não garante a consistência do resultado. A versão protegida reduz o throughput neste cenário, em troca da correção do contador.
+
+Sincronização, visibilidade e ordenação:
+O semáforo coordena o acesso à seção crítica e estabelece a sincronização entre as threads que entram e saem dela. Isso impede que várias threads atualizem simultaneamente o contador dentro da região protegida. Neste teste, a evidência prática dessa proteção é que as três execuções com semáforo produziram o valor esperado.
+
+7. OBSERVAÇÃO SOBRE O EXPERIMENTO
+Na versão sem semáforo, o programa lê o valor atual do contador e, em intervalos de 1.000 iterações por thread, chama time.sleep(0) antes de gravar o valor incrementado. Essa pausa cede a execução e amplia a oportunidade de interleaving entre threads, tornando a condição de corrida mais observável. Portanto, essa escolha experimental deve ser considerada ao interpretar os tempos e os resultados.
+Os tempos são medições desta execução específica e podem variar em outras execuções ou computadores.
