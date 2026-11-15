@@ -3,7 +3,7 @@
 **Disciplina:** Performance em Sistemas Ciberfísicos  
 **Linguagem:** Python 3.10+
 
-## Vídeo de apresentação: >>*[INSERIR LINK AQUI]*<<
+## Vídeo de apresentação: https://youtu.be/wfkwVkEr9Vg
 
 ## Integrantes
 - **Bárbara:** Jantar dos Filósofos.
