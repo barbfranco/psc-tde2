@@ -1,0 +1,41 @@
+# Evidências: Deadlock com dois locks
+
+Ambiente: Python 3.13.13 | Windows
+Configuração: 2 threads e 2 locks (A e B)
+Comando: py 3-deadlock/deadlock.py
+
+## Teste 1: Versão com deadlock
+
+Opção escolhida: 1
+Objetivo: observar o impasse causado pela aquisição dos locks em ordens opostas.
+
+Trecho da saída real:
+T1: adquiriu A
+T2: adquiriu B
+T1: aguardando B
+T2: aguardando A
+DEADLOCK OBSERVADO: T1 e T2 permanecem bloqueadas
+
+Resultado: T1 mantém A e espera B; T2 mantém B e espera A. Nenhuma conclui, caracterizando espera circular.
+
+Condições de Coffman presentes:
+- Exclusão mútua: cada lock só pode estar adquirido por uma thread por vez.
+- Manter e esperar: cada thread mantém um lock enquanto aguarda o outro.
+- Não preempção: o código não retira à força o lock adquirido pela outra thread.
+- Espera circular: T1 espera por T2, enquanto T2 espera por T1.
+
+## Teste 2: Versão corrigida
+
+Opção escolhida: 2
+Objetivo: verificar a conclusão das threads usando a mesma ordem de aquisição.
+
+Trecho da saída real:
+T1: adquiriu Lock A
+T1: adquiriu Lock B
+T1: concluiu
+T2: adquiriu Lock A
+T2: adquiriu Lock B
+T2: concluiu
+CORREÇÃO: T1 e T2 foram concluídas sem deadlock
+
+Resultado: ambas adquiriram A antes de B e concluíram. A condição de Coffman eliminada é a espera circular: enquanto uma thread espera por A, ela ainda não possui B, permitindo que a outra conclua e libere os locks.
