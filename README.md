@@ -80,4 +80,37 @@ Os registros completos do experimento estão disponíveis em `evidencias/semafor
 
 ## 3: DEADLOCK COM DOIS LOCKS
 
-*A completar*
+### Objetivo e implementação
+Demonstrar um deadlock com duas threads e dois locks compartilhados, utilizando `threading.Thread` e `threading.Lock` em Python.
+
+**Versão com deadlock:** T1 adquire A e depois tenta adquirir B, enquanto T2 adquire B e depois tenta adquirir A. A pausa `time.sleep(0.05)` entre as aquisições aumenta a chance de cada thread adquirir o primeiro lock antes de solicitar o segundo. Quando isso acontece, cada uma mantém um lock e espera pelo outro, impedindo o progresso das duas.
+
+**Versão corrigida:** ambas as threads adquirem os locks na mesma ordem global: A antes de B. Quem espera por A ainda não possui B, impedindo a formação de espera circular. As aquisições são feitas com `acquire()` e, após a conclusão, os locks são liberados com `release()` na ordem inversa: B antes de A.
+
+### Condições de Coffman
+Na versão com deadlock, as quatro condições aparecem simultaneamente:
+
+- **Exclusão mútua:** cada lock só pode estar adquirido por uma thread por vez.
+- **Manter e esperar:** cada thread mantém um lock enquanto aguarda o outro.
+- **Não preempção:** o protocolo não retira à força os locks adquiridos pelas threads.
+- **Espera circular:** T1 aguarda B, mantido por T2, enquanto T2 aguarda A, mantido por T1.
+
+### Resultados
+Na execução registrada, a primeira versão apresentou os logs de espera cruzada e o diagnóstico de deadlock, sem que nenhuma thread concluísse. Na versão corrigida, T1 e T2 adquiriram A antes de B e concluíram normalmente, eliminando a condição de espera circular.
+
+O timeout dos dois `join(timeout=5)` permite exibir o diagnóstico e retornar ao menu após aproximadamente 10 segundos no cenário de impasse. As threads continuam bloqueadas até o encerramento do processo; a opção corrigida inicia uma nova execução com novos locks e novas threads.
+
+Os registros das duas versões estão disponíveis em [evidencias/deadlock.txt](evidencias/deadlock.txt).
+
+### Como executar
+No terminal, a partir da raiz do repositório:
+
+```bash
+python 3-deadlock/deadlock.py
+```
+
+Selecione:
+
+- `1` para demonstrar o deadlock.
+- `2` para demonstrar a correção por hierarquia de locks.
+- `3` para sair.
